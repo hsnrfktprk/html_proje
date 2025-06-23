@@ -1,0 +1,100 @@
+html, body {
+   height: 100%;
+   margin: 0;
+   padding: 0;
+}
+
+body {
+   background-image: url('background.jpg');
+   background-size: cover;
+   background-position: center center;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   position: relative;
+   font-family: 'Poppins'
+}
+
+h1{
+   font-size: 70px;
+
+}
+
+
+.box{ 
+   text-align: center;
+   color: aliceblue;
+   margin: 80px;
+}
+
+.score{
+   font-family: 'Poppins', sans-serif;
+   font-size: 25px;
+   margin: 50px;
+ }
+
+ .start{
+   display: inline-block;
+   padding: 10px 20px;
+   background-color: #5e4872;
+   color: #ffffff;
+   text-decoration: none;
+   font-size: 25px;
+   border-radius: 5px;
+   }
+   
+.start:hover {
+      background-color: #924cbd;
+   }
+
+
+.letters{
+   display: flex;
+   justify-content: center;
+
+}
+
+
+.letters img {
+   height: 140px;
+   width: auto;
+   margin: 70px; 
+   filter: invert(1);
+}
+
+.resultDiv {
+   text-align: center;
+   margin-top: 30px;
+ }
+ 
+ .resultDiv p {
+   margin: 70px;
+   font-size: 35px;
+   color:aliceblue;
+   font-family: 'Poppins', sans-serif;
+   font-weight: 600;
+   line-height: 100px;
+   
+ }
+ 
+ .resultDiv button {
+   
+   display: inline-block;
+   padding: 10px 20px;
+   background-color: #5e4872;
+   color: #ffffff;
+   text-decoration: none;
+   font-size: 30px;
+   border-radius: 5px;
+
+ }
+ 
+ .resultDiv button:hover {
+   background-color: #924cbd
+ } 
+
+ .resultDiv h1 {
+   margin: 70px;
+   font-size: 70px;
+   color: aliceblue;
+   margin-bottom: 20px;
+}

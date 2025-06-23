@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Memory Game</title>
+   <link rel="stylesheet" href="game.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+   <div class="box">
+      <h1>MEMORY GAME FOR HASAN</h1>
+      <div class="game">
+         <p class="score" id="scoreDisplay">Score: 0</p>
+      </div>
+      <button class="start" onclick="start()">Start Game</button>
+   </div>
+   <div class="letters" id="lettersContainer">
+      <img src="letters/H.svg" alt="H" onclick="click('H')">
+      <img src="letters/T.svg" alt="T" onclick="click('T')">
+      <img src="letters/M.svg" alt="M" onclick="click('M')">
+      <img src="letters/L.svg" alt="L" onclick="click('L')">
+      <!-- <img src="letters/E.svg" alt="N" onclick="click('A')">
+      <img src="letters/L.svg" alt="L" onclick="click('L')"> -->
+   </div>
+
+   <script>
+      var lettersContainer = document.getElementById("lettersContainer");
+      var correctOrder = ['H', 'T', 'M', 'L'];
+      var playerOrder = [];
+      var score = 0;
+
+      function start() {
+         playerOrder = [];
+         updateScore();
+
+         var lettersArray = Array.from(correctOrder);
+         lettersArray.sort(() => Math.random() - 0.5);
+
+         lettersContainer.innerHTML = "";
+
+         lettersArray.forEach(function(letter) {
+            var img = document.createElement("img");
+            img.src = "letters/" + letter + ".svg";
+            img.alt = letter;
+            img.onclick = function() {
+               click(this.alt);
+            };
+            lettersContainer.appendChild(img);
+         });
+
+         setTimeout(coverLetters, 2000);
+      }
+
+      function coverLetters() {
+         for (var i = 0; i < lettersContainer.children.length; i++) {
+            lettersContainer.children[i].src = "back.svg";
+         }
+      }
+
+      function click(letter) {
+         if (lettersCovered()) {
+            revealLetter(letter);
+            playerOrder.push(letter);
+      
+            var correctSoFar = true;
+      
+            for (var i = 0; i < playerOrder.length; i++) {
+               if (playerOrder[i] !== correctOrder[i]) {
+                  correctSoFar = false;
+                  break;
+               }
+            }
+      
+            if (correctSoFar) {
+               score += 20;
+               updateScore();
+      
+               if (arraysEqual(playerOrder, correctOrder)) {
+                  start();
+               }
+            } else {
+               finishGame("Game Over! Incorrect order.<br> Your Score: " + score);
+            }
+         }
+      }
+
+      function arraysEqual(arr1, arr2) {
+         return JSON.stringify(arr1) === JSON.stringify(arr2);
+      }  
+
+      function isCorrectOrder(order) {
+         for (var i = 0; i < order.length; i++) {
+            if (order[i] !== correctOrder[i]) {
+               return false;
+            }
+         }
+         return true;
+      }
+
+      function revealLetter(letter) {
+         for (var i = 0; i < lettersContainer.children.length; i++) {
+            if (lettersContainer.children[i].alt === letter) {
+               lettersContainer.children[i].src = "letters/" + letter + ".svg";
+            }
+         }
+      }
+
+      function lettersCovered() {
+         for (var i = 0; i < lettersContainer.children.length; i++) {
+            if (lettersContainer.children[i].src.indexOf("back.svg") !== -1) {
+               return true;
+            }
+         }
+         return false;
+      }
+
+      function finishGame(message) {   
+         var resultDiv = document.createElement("div");
+         resultDiv.className = "resultDiv";
+         resultDiv.innerHTML = "<h1>MEMORY GAME</h1><p>" + message + "</p><button onclick='restart()'>Restart</button>";
+         document.body.innerHTML = "";
+         document.body.appendChild(resultDiv);
+      }
+      
+
+      function updateScore() {
+         document.getElementById("scoreDisplay").innerText = "Score: " + score;
+      }
+
+      function restart() {
+         location.reload();
+      }
+   </script>
+</body>
+</html>
